@@ -10,10 +10,10 @@ class Order
         typedef size_t size_type;
         // Constructor creates an empty list
         // ******************************************************************************************
-        LinkedList();
+        Order();
         // Summary: Constructor creates a linked list object with count set at 0.
         // ******************************************************************************************
-        LinkedList(const LinkedList & list2bcopy);
+        Order(const Order & list2bcopy);
         // Summary:  copy constructor creates a linked list object with count set at 0
         // and copy all of list2bcopy into it.
         // ******************************************************************************************
@@ -66,18 +66,6 @@ class Order
         // ******************************************************************************************
         // ******************************************************************************************
 
-        Node<Pizza>* list_search(const Node<Pizza>::value_type& target);
-        // Summary: This function looks for the Node that has the target value in the data field.
-        // Preconditions: head_ptr points to the beginning of the list. target is the data we are looking for.
-        // Postconditions: A pointer to the Node containing the target is returned or NULL is returned if the target was not in the list.
-        // ******************************************************************************************
-        // ******************************************************************************************
-        const Node<Pizza>* list_search(const Node<Pizza>::value_type& target)const;
-        // Summary: This function looks for the Node that has the target value in the data field.
-        // Preconditions: head_ptr points to the beginning of the list. target is the data we are looking for.
-        // Postconditions: A pointer to the Node containing the target is returned or NULL is returned if the target was not in the list.
-        // ******************************************************************************************
-        // ******************************************************************************************
         void head_remove();
         // Summary: This function removes the Node at the beginning of the list.
         // Preconditions: There is a list with head_ptr pointing to the beginning
@@ -100,13 +88,13 @@ class Order
         // Postconditions: list has been cleared of Nodes. head_ptr now is NULL.
         // *********************************************************************
         // *********************************************************************
-        void operator= (const LinkedList& source_list);
+        void operator= (const Order& source_list);
         //  Summary: will clear list and copy source list nodes into list.
         // Preconditions: source list must not be empty.
         // postconditions: list will be be populated with copies of source 
         // list nodes
 
-        ~LinkedList();
+        ~Order();
         // Summary: The destructor empties the list.
         // *********************************************************************
         
@@ -119,18 +107,7 @@ class Order
 
         // Non Member Functions
         // *********************************************************************
-        void list_copy(const LinkedList& source_list, LinkedList& destination_list );
+        void list_copy(const Order& source_list, Order& destination_list );
         //  summary: will copy all nodes from source list to destination list
         //  in the same order
         // *********************************************************************
-        bool operator==(const LinkedList& l1, const LinkedList& l2);
-        // Summary: will compare l1 with l2 using list length and each node in the list
-        // Postcondition: will return true only if both lists are the same length and
-        // each node is the same in both list.
-        // *********************************************************************
-        void delete_repetitions(LinkedList& list);
-        // Summary: if any of the list nodes contain data that already exisit in 
-        // previous node it will be delete. 
-        // *********************************************************************
-        void in_between(Node<Pizza>* head_ptr, const Node<Pizza>::value_type& start, const Node<Pizza>::value_type& end);
-        // Summary: will print all the nodes between start and end
