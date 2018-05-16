@@ -6,6 +6,7 @@
         "initializer_list": "cpp",
         "xmemory0": "cpp",
         "xstring": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "string": "cpp"
     }
 }

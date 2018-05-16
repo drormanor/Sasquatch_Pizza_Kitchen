@@ -178,7 +178,55 @@ Order::~Order()
 
 void Order::add_pizza()
 {
+    Pizza *temp = new Pizza;
+    char pizza_size;
+    size_type topping;
+    cout << "Please select the size of pizza (s for small, m for medium, or l for large): ";
+    cin >> pizza_size;
+    temp->set_size(tolower(pizza_size));
 
+    cout << "Please choose up to 5 toppings (cheese and sauce are included)\n";
+    cout << "If you are done or do not want extra toppings choose 0\n\n";
+
+    size_type i = 0;
+    while(i < Max_toppings)
+    {
+        print_topping_list();
+        cout << "Enter the toping code: ";
+        cin >> topping;
+        if(topping == 0)
+        {
+            return;
+        } else if (topping > Topping_list_size-1)
+        {   
+            cout << "\n\nYou have enterd a incorrect code. please try again!!!\n\n";
+            continue;
+        } else 
+        {
+            temp->add_topping(toppings[topping]);
+            i++;
+        }
+
+        head_insert(*temp);
+        
+    }
+
+
+    
+
+
+
+
+}
+void Order::print_topping_list() const
+{       
+    cout << "Code\t\t\tTopping\n";
+    cout << "-----------------------------\n";
+    for(size_type i = 1; i < Topping_list_size; i++)
+    {
+        cout << "\t" << i << "\t\t" << toppings[i] << endl;
+    }
+    cout << "-----------------------------\n";
 }
 
 void list_copy(const Order &source_list, Order &destination_list)
