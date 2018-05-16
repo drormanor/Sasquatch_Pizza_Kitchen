@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <time.h>
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 class Order
@@ -11,21 +12,15 @@ public:
   typedef Node<Pizza>::value_type data_type;
   typedef size_t size_type;
   static const size_type Deliverry_time = 30;
-  static const size_type Sm_pie_cook_time = 10;
-  static const size_type Mid_pie_cook_time = 15;
-  static const size_type Bg_pie_cook_time = 20;
   static const size_type Max_toppings = 5;
   static const size_type Topping_list_size = 20;
-
+  
   // Constructor creates an empty list
   // ******************************************************************************************
   Order();
   // Summary: Constructor creates a linked list object with count set at 0.
   // ******************************************************************************************
-  Order(const Order &list2bcopy);
-  // Summary:  copy constructor creates a linked list object with count set at 0
-  // and copy all of list2bcopy into it.
-  // ******************************************************************************************
+
 
   void set_phone(string phone);
   // Summary:  setter for the customer phone
@@ -65,18 +60,7 @@ public:
   // Postconditions: A pointer to the head has been returned.
   // ******************************************************************************************
 
-  Node<Pizza> *getTailPtr();
-  // Summary: Returns a pointer to the end Node of the list.
-  // Preconditions: The list has been initialized.
-  // Postconditions: A pointer to the end has been returned.
-  // ******************************************************************************************
 
-  const Node<Pizza> *getTailPtr() const;
-  // Summary: Returns a pointer to the end Node of the list.
-  // Preconditions: The list has been initialized.
-  // Postconditions: A pointer to the end of the list has been returned.
-  // ******************************************************************************************
-  // ******************************************************************************************
   size_type list_length() const;
   // Summary: This function returns the number of Nodes in the list.
   // Preconditions:  A list exists
@@ -95,12 +79,7 @@ public:
   // Postconditions: A new Node has been added to the beginning of the list with the value in the data_field at the head of the list.
   // ******************************************************************************************
   // ******************************************************************************************
-  void list_insert(Node<Pizza> *prev_ptr, const Node<Pizza>::value_type &value);
-  // Summary: This function inserts a new Node with value in the data field after the prev_ptr Node.
-  // Preconditions: prev_ptr is a pointer to the Node that is before the the spot where we want to insert a new Node with data equal to value.
-  // Postconditions: The list with one more Node that contains the value passed into the function.
-  // ******************************************************************************************
-  // ******************************************************************************************
+
 
   void head_remove();
   // Summary: This function removes the Node at the beginning of the list.
@@ -110,14 +89,7 @@ public:
   // removed.
   // *********************************************************************
   // *********************************************************************
-  void list_remove(Node<Pizza> *prev_ptr);
-  // Summary: This function removes the Node after the prev_ptr Node.
-  // Preconditions: prev_ptr is a Node pointer that points to the Node
-  // before the Node we want to delete.
-  // Postconditions: The list has had one Node removed that use to be after
-  // the Node pointed to by prev_ptr
-  // *********************************************************************
-  // *********************************************************************
+
   void clear_list();
   // Summary: This function empties the list.
   // Preconditions: There is a current list.
@@ -150,6 +122,7 @@ public:
 
 private:
   int cook_time;
+  unordered_map<char, int> cooking_time{{'s', 10},{'m', 15},{'l', 20}};
   const string toppings[Topping_list_size]{"End",
                             "Artichoke hearts",
                             "Capers",
@@ -175,7 +148,7 @@ private:
   Node<Pizza> *head_ptr; // Points to front of list
   Node<Pizza> *tail_ptr; // Points to end of list
   size_type pizza_count; // holds the number of Nodes in the list
-  time_t order_time;     //store the time when the order was placed
+  time_t order_time =0;     //store the time when the order was placed
 
   void set_start_time() { order_time = time(NULL); };
   // Summary: a timestamp will be created and stored
@@ -185,9 +158,3 @@ private:
   void print_topping_list() const;
 };
 
-// Non Member Functions
-// *********************************************************************
-void list_copy(const Order &source_list, Order &destination_list);
-//  summary: will copy all nodes from source list to destination list
-//  in the same order
-// *********************************************************************

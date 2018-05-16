@@ -9,20 +9,7 @@ Order::Order()
     pizza_count = 0;
     head_ptr = NULL;
 }
-Order::Order(const Order &list2bcopy)
-{
-    pizza_count = 0;
-    head_ptr = NULL;
 
-    this->head_insert(list2bcopy.getHeadPtr()->data());
-    Node<Pizza> *dest_cursor = head_ptr;
-
-    for (const Node<Pizza> *source_cursor = list2bcopy.getHeadPtr()->link(); source_cursor != NULL; source_cursor = source_cursor->link())
-    {
-        this->list_insert(dest_cursor, source_cursor->data());
-        dest_cursor = dest_cursor->link();
-    }
-}
 void Order::set_phone(string phone)
 {
     customer_phone = phone;
@@ -61,15 +48,6 @@ const Node<Pizza> *Order::getHeadPtr() const
     return head_ptr;
 }
 
-Node<Pizza> *Order::getTailPtr()
-{
-    return tail_ptr;
-}
-const Node<Pizza> *Order::getTailPtr() const
-{
-    return tail_ptr;
-}
-
 size_t Order::list_length() const
 {
     return pizza_count;
@@ -85,22 +63,12 @@ void Order::head_insert(const Node<Pizza>::value_type &value)
     if (head_ptr == NULL)
     {
         head_ptr = new Node<Pizza>(value);
-        tail_ptr = head_ptr;
     }
     else
     {
         Node<Pizza> *temp = new Node<Pizza>(value, head_ptr);
         head_ptr = temp;
     }
-    pizza_count++;
-}
-
-void Order::list_insert(Node<Pizza> *prev_ptr, const Node<Pizza>::value_type &value)
-{
-    Node<Pizza> *temp = new Node<Pizza>(value, prev_ptr->link());
-    prev_ptr->set_link(temp);
-    if (temp->link() == NULL)
-        tail_ptr = temp;
     pizza_count++;
 }
 
@@ -112,30 +80,10 @@ void Order::head_remove()
         head_ptr = head_ptr->link();
         delete remove_ptr;
     }
-    if (pizza_count == 1)
-        tail_ptr = head_ptr;
-    pizza_count--;
+    
+        pizza_count--;
 }
-void Order::list_remove(Node<Pizza> *prev_ptr)
-{
-    if (!isEmpty())
-    {
 
-        if (prev_ptr->link() != NULL)
-        {
-            Node<Pizza> *remove_ptr = prev_ptr->link();
-            prev_ptr->set_link(prev_ptr->link()->link());
-            delete remove_ptr;
-            if (prev_ptr == NULL)
-                tail_ptr = prev_ptr;
-            if (pizza_count == 1)
-            {
-                tail_ptr = head_ptr;
-            }
-            pizza_count--;
-        }
-    }
-}
 void Order::clear_list()
 {
     while (head_ptr != NULL)
@@ -158,10 +106,16 @@ void Order::take_order()
 
     while (tolower(check) == 'y')
     {
+        cout << "Add a pizza:\n";
+        add_pizza();
         
+        cout << "Would you like to add another pizza? y/n";
+        cin >> check;
     }
-     
+
 }
+
+// HERE!!!!!!
 void Order::print_order()
 {
 }
@@ -183,65 +137,50 @@ void Order::add_pizza()
     size_type topping;
     cout << "Please select the size of pizza (s for small, m for medium, or l for large): ";
     cin >> pizza_size;
-    temp->set_size(tolower(pizza_size));
+    temp->set_pizza_size(tolower(pizza_size));
+
+    if (cooking_time[pizza_size] > order_time) 
+        {
+            order_time = cooking_time[pizza_size];
+        }
 
     cout << "Please choose up to 5 toppings (cheese and sauce are included)\n";
     cout << "If you are done or do not want extra toppings choose 0\n\n";
 
     size_type i = 0;
-    while(i < Max_toppings)
+    while (i < Max_toppings)
     {
         print_topping_list();
         cout << "Enter the toping code: ";
         cin >> topping;
-        if(topping == 0)
+        if (topping == 0)
         {
             return;
-        } else if (topping > Topping_list_size-1)
-        {   
+        }
+        else if (topping > Topping_list_size - 1)
+        {
             cout << "\n\nYou have enterd a incorrect code. please try again!!!\n\n";
             continue;
-        } else 
+        }
+        else
         {
-            temp->add_topping(toppings[topping]);
-            i++;
+            if (temp->add_topping(toppings[topping]))
+                i++;
+            else
+                cout << "you already have 5 toppings\n";
+            return;
         }
 
         head_insert(*temp);
-        
     }
-
-
-    
-
-
-
-
 }
 void Order::print_topping_list() const
-{       
+{
     cout << "Code\t\t\tTopping\n";
     cout << "-----------------------------\n";
-    for(size_type i = 1; i < Topping_list_size; i++)
+    for (size_type i = 1; i < Topping_list_size; i++)
     {
         cout << "\t" << i << "\t\t" << toppings[i] << endl;
     }
     cout << "-----------------------------\n";
-}
-
-void list_copy(const Order &source_list, Order &destination_list)
-{
-    if (source_list.isEmpty())
-        return;
-
-    destination_list.head_insert(source_list.getHeadPtr()->data());
-
-    const Node<Pizza> *source_cursor;
-    Node<Pizza> *dest_cursor = destination_list.getHeadPtr();
-    for (source_cursor = source_list.getHeadPtr()->link(); source_cursor != NULL; source_cursor = source_cursor->link())
-    {
-        destination_list.list_insert(dest_cursor, source_cursor->data());
-        dest_cursor = dest_cursor->link();
-    }
-    dest_cursor->set_link(NULL);
 }
