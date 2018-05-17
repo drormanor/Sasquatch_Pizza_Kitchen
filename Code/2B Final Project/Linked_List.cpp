@@ -209,3 +209,32 @@ void Linked_List::operator=(const Linked_List& list1)
     }
     return;
 }
+void Linked_List::print_list()
+{
+    cout << "The Sasquatch Pizza Kitchen";
+    cout << "Orders that are completed: \n";
+    for(Node<Order>* cursor = head_ptr; cursor != NULL; cursor = cursor->link())
+    {
+        if(cursor->data().is_ready() == true)
+            cursor->data().print_order();
+    }
+    cout << "\nOrders that are in progress: \n";
+    for(Node<Order>* cursor = head_ptr; cursor != NULL; cursor = cursor->link())
+    {
+        if(cursor->data().is_ready() == false)
+            cursor->data().print_order();
+    }
+
+}
+void Linked_List::delivery_check()
+{
+    Node<Order>* cursor = head_ptr;
+    if(cursor->data().is_delivered() == true)
+        head_remove();
+    while(cursor->link() != NULL)
+    {
+        if(cursor->link()->data().is_delivered() == true)
+            list_remove(cursor);
+        cursor = cursor->link();
+    }
+}
