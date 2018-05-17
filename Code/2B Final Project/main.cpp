@@ -1,8 +1,13 @@
 #include <iostream>
-#include "Linked_List.h"
+//#include "Linked_List.h"
+//#include "./include/Linked_List.h"
+#include "Order.h"
+
 
 int main()
 {
-    cout << "Hello world!" << endl;
+   Order myOrder;
+
+   myOrder.take_order();
     return 0;
 }

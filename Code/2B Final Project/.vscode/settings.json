@@ -7,6 +7,8 @@
         "xmemory0": "cpp",
         "xstring": "cpp",
         "iostream": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "istream": "cpp",
+        "ostream": "cpp"
     }
 }
