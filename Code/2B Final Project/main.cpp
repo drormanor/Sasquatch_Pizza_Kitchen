@@ -2,12 +2,13 @@
 //#include "Linked_List.h"
 //#include "./include/Linked_List.h"
 #include "Order.h"
-
+#include<cstdlib>
 
 int main()
 {
+
    Order myOrder;
 
    myOrder.take_order();
-    return 0;
+    return EXIT_SUCCESS;
 }

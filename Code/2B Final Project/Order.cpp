@@ -8,6 +8,7 @@ Order::Order()
 {
     pizza_count = 0;
     head_ptr = NULL;
+    cook_time = 0;
 }
 
 void Order::set_phone(string phone)
@@ -140,17 +141,18 @@ void Order::take_order()
 
 void Order::print_order()
 {
-    cout << setw(20) << customer_name;
-    cout << setw(20) << customer_phone;
-    cout << setw(30) << ctime(&order_time);
-    cout << setw(5) << cook_time << "min" << endl;
+
+    cout << setw(15) << left << customer_name;
+    cout << setw(15) << left << customer_phone;
+    cout << setw(22) << left << ctime(&order_time);
+    cout << "Order will be ready in " << cook_time - (time(NULL) - order_time) << " min." << endl;
+
     cout << "order detail:" << endl;
-    //HERE!!!!!
-    
-    cout << "\n\nhello\n\n";
+
     Node<Pizza> *cursor = head_ptr;
-    while (cursor->link() != NULL)
-    {   
+    while (cursor != NULL)
+    {
+
         cursor->data().print_Pizza();
         cursor = cursor->link();
     }
@@ -183,7 +185,7 @@ void Order::add_pizza()
     cin >> pizza_size;
     temp->set_pizza_size(tolower(pizza_size));
 
-    if (cooking_time[pizza_size] > order_time)
+    if (cooking_time[pizza_size] > cook_time)
     {
         cook_time = cooking_time[pizza_size];
     }
@@ -199,7 +201,7 @@ void Order::add_pizza()
         cin >> topping;
         if (topping == 0)
         {
-            return;
+            break;
         }
         else if (topping > Topping_list_size - 1)
         {
@@ -216,12 +218,12 @@ void Order::add_pizza()
             }
         }
     }
+    temp->print_Pizza();
     head_insert(*temp);
 }
 void Order::print_topping_list() const
 {
-    string sep = " | ";
-    //cout << left;
+
     cout << setw(5) << "Code";
     cout << sep << setw(20) << "Topping" << endl;
     cout << "-----------------------------\n";

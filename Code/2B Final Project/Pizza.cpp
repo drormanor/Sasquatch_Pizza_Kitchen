@@ -28,7 +28,7 @@ bool Pizza::add_topping(string new_topping)
 {
     if (topping_count < Max_toppings)
     {
-        toppings[topping_count++] = new_topping;
+        toppings[topping_count++] = new_topping; 
         return true;
     }
     else
@@ -55,7 +55,7 @@ string *Pizza::get_toppings()
     return toppings;
 }
 
-void Pizza::print_Pizza() const
+void Pizza::print_Pizza() 
 {
     if (pizza_size == 's')
         cout << "Small";

@@ -13,6 +13,7 @@ public:
   typedef size_t size_type;
   static const size_type Deliverry_time = 30;
   static const size_type Max_toppings = 5;
+  string sep = " | ";
   static const size_type Topping_list_size = 20;
 
   // Constructor creates an empty list
@@ -71,7 +72,7 @@ public:
   // Postconditions: Returns true if the list contains no Nodes and false if the list contains at least one Node.
   // ******************************************************************************************
   // ******************************************************************************************
-  void head_insert(const Node<Pizza>::value_type &value);
+  void head_insert(const data_type &value);
   // Summary: This function inserts a new Node at the beginning of the list.
   // Preconditions:  A head_ptr exists and a new value has been passed in.
   // Postconditions: A new Node has been added to the beginning of the list with the value in the data_field at the head of the list.
