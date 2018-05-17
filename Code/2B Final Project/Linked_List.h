@@ -34,6 +34,9 @@ class Linked_List
         void list_remove(Node<Order>* prev_ptr);
         void clear_list();
         void operator=(const Linked_List& list1);
+        void delivery_check();
+
+        void print_list();
     private:
         Node<Order>* head_ptr;
         Node<Order>* tail_ptr;
