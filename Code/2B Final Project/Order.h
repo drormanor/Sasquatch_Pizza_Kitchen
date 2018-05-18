@@ -29,22 +29,26 @@ public:
   void set_name(string name);
   // Summary:  setter for the customer name
   // ******************************************************************************************
-  void set_cookTime(int cookTime);
+  void set_cookTime(time_t ct);
   // Summary:  setter for the order cook time
   // ******************************************************************************************
+    void set_order_time(time_t t);
+  // Summary: a timestamp will be created and stored
+  // *********************************************************************
 
-  string get_phone(string phone) const;
+
+  string get_phone() const;
   // Summary:  getter for the customer phone
   // ******************************************************************************************
 
-  string get_name(string name) const;
+  string get_name() const;
   // Summary:  getter for the customer name
   // ******************************************************************************************
 
-  int get_cookTime() const;
+  time_t get_cookTime() const;
   // Summary:  getter for the order cook time
   // ******************************************************************************************
-  time_t get_start_time() const { return order_time; };
+  time_t get_order_time() const;
   // Summary: a timestamp will be returned
   // *********************************************************************
 
@@ -135,8 +139,8 @@ public:
   // *********************************************************************
 
 private:
-  int cook_time;
-  unordered_map<char, int> cooking_time{{'s', 10}, {'m', 15}, {'l', 20}};
+  time_t cook_time;
+  unordered_map<char, int> cooking_time{{'s', 120}, {'m', 240}, {'l', 360}};
   const string toppings[Topping_list_size]{"End",
                                            "Artichoke hearts",
                                            "Capers",
@@ -160,11 +164,10 @@ private:
   string customer_name;
   string customer_phone;
   Node<Pizza> *head_ptr; // Points to front of list
-  Node<Pizza> *tail_ptr; // Points to end of list
   size_type pizza_count; // holds the number of Nodes in the list
-  time_t order_time = 0; //store the time when the order was placed
+  time_t order_time; //store the time when the order was placed
 
-  void set_start_time() { order_time = time(NULL); };
+  void set_order_time() { order_time = time(NULL); };
   // Summary: a timestamp will be created and stored
   // *********************************************************************
 

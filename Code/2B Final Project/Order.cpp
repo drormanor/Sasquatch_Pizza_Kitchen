@@ -20,25 +20,33 @@ void Order::set_name(string name)
 {
     customer_name = name;
 }
-void Order::set_cookTime(int cookTime)
+void Order::set_cookTime(time_t ct)
 {
-    this->cook_time = cook_time;
+    cook_time = ct;
 }
 
-string Order::get_phone(string phone) const
+void Order::set_order_time(time_t t)
+{
+    order_time = t;
+}
+
+string Order::get_phone() const
 {
     return customer_phone;
 }
-string Order::get_name(string name) const
+string Order::get_name() const
 {
     return customer_name;
 }
 
-int Order::get_cookTime() const
+time_t Order::get_cookTime() const
 {
     return cook_time;
 }
-
+time_t Order::get_order_time() const
+{
+    return order_time;
+}
 Node<Pizza> *Order::getHeadPtr()
 {
     return head_ptr;
@@ -99,6 +107,12 @@ void Order::clear_list()
 }
 void Order::operator=(const Order &source_list)
 {
+    set_name(source_list.get_name());
+    set_phone(source_list.get_phone());
+    set_cookTime(source_list.get_cookTime());
+    cout << "\n new cook time: " << get_cookTime() << endl;
+    cout << "\n old cook time: " << source_list.get_cookTime() << endl;
+    this->order_time = source_list.get_order_time();
     this->head_insert(source_list.getHeadPtr()->data());
     Node<Pizza> *dest_cursor = head_ptr;
 
@@ -135,7 +149,7 @@ void Order::take_order()
             cin >> check;
         }
     }
-    set_start_time();
+    set_order_time();
     print_order();
 }
 
