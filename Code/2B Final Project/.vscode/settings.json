@@ -11,6 +11,20 @@
         "istream": "cpp",
         "ostream": "cpp",
         "ios": "cpp",
-        "xiosbase": "cpp"
-    }
+        "xiosbase": "cpp",
+        "list": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "xhash": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp"
+    },
+    "spellright.language": "en",
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "code",
+        "plaintext",
+        "cpp"
+    ]
 }

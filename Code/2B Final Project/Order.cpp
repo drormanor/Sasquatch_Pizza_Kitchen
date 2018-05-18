@@ -130,6 +130,7 @@ void Order::take_order()
     set_name(name);
     cout << "Please enter the customer phone number: ";
     getline(cin, phone);
+    is_phone_number(phone);
     set_phone(phone);
 
     char check = 'y';
@@ -144,7 +145,7 @@ void Order::take_order()
         cin >> check;
         while (!(tolower(check) == 'n' || tolower(check) == 'y'))
         {
-            cout << "You have enterd the wrong answer!!!\n";
+            cout << "You have entered the wrong answer!!!\n";
             cout << "Would you like to add another pizza??? y/n ";
             cin >> check;
         }
@@ -157,7 +158,7 @@ void Order::print_order()
 {
 
     cout << setw(15) << left << customer_name;
-    cout << setw(15) << left << customer_phone;
+    cout << setw(15) << left << format_phone(customer_phone);
     cout << setw(22) << left << ctime(&order_time);
     cout << "Order will be ready in " << cook_time - (time(NULL) - order_time) << " min." << endl;
 
@@ -210,7 +211,7 @@ void Order::add_pizza()
 
     while (i < Max_toppings)
     {
-        
+
         cout << "\nIf you are done or do not want extra toppings choose 0\n";
         cout << "\nTo remove the last topping enter -1\n\n";
 
@@ -218,20 +219,23 @@ void Order::add_pizza()
 
         cout << "\nEnter the toping code (enter 0 to exit or -1 to remove last topping): ";
         cin >> topping;
-        cout << "\n\ntopping selection is : " << topping << endl << endl;
+        cout << "\n\ntopping selection is : " << topping << endl
+             << endl;
 
         if (topping == 0)
         {
             break;
-        } else if (topping == -1 && i > 0)
+        }
+        else if (topping == -1 && i > 0)
         {
             i--;
             temp->remove_last_topping();
-        }        else if (topping > Topping_list_size - 1 || topping < -1)
-        {
-            cout << "\n\nYou have enterd a incorrect code. please try again!!!\n\n";
         }
-        
+        else if (topping > Topping_list_size - 1 || topping < -1)
+        {
+            cout << "\n\nYou have entered a incorrect code. please try again!!!\n\n";
+        }
+
         else
         {
             if (temp->add_topping(toppings[topping]))
@@ -261,4 +265,43 @@ void Order::print_topping_list() const
         cout << setw(20) << toppings[i] << endl;
     }
     cout << "-----------------------------\n";
+}
+
+// will check if the number entered is a valid format
+void is_phone_number(string &ph_num)
+{
+    bool invalid_num;
+    do
+    {
+        invalid_num = false;
+        for (size_t i = 0; i < ph_num.length() - 1; i++)
+        {
+            if (!isdigit(ph_num[i]))
+            {
+                invalid_num = true;
+                break;
+            }
+        }
+        if (ph_num.length() != 10)
+        {
+            invalid_num = true;
+        }
+        if (invalid_num)
+        {
+            cout << ph_num << " is invalid format.( correct format:2223335555 with no spaces).\n";
+            cout << "Please enter the customer phone number: ";
+            getline(cin, ph_num);
+        }
+    } while (invalid_num);
+}
+
+// will print the phone number it this format (xxx)xxx-xxxx
+string format_phone(string ph_num)
+{
+
+    ph_num = ph_num.insert(0, "(");
+    ph_num = ph_num.insert(4, ")");
+    ph_num = ph_num.insert(8, "-");
+
+    return ph_num;
 }
