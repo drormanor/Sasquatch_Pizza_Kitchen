@@ -1,7 +1,7 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 #include "Order.h"
-
+#include <iostream>
 class Linked_List
 {
     public:
@@ -35,7 +35,7 @@ class Linked_List
         void clear_list();
         void operator=(const Linked_List& list1);
         void delivery_check();
-
+        void create_order();
         void print_list();
     private:
         Node<Order>* head_ptr;
