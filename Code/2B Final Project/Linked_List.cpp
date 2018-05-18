@@ -1,5 +1,4 @@
 #include "Linked_List.h"
-#include<iostream>
 /*
     Author: Jordan Laidig
     Title: Linked_List
@@ -210,10 +209,18 @@ void Linked_List::operator=(const Linked_List& list1)
     }
     return;
 }
+/*
+    Author: Jordan Laidig
+    Title: print_list
+    Description: Prints out all the orders in the list.
+    Date: 5/18/18
+*/
 void Linked_List::print_list()
 {
     cout << "The Sasquatch Pizza Kitchen";
     cout << "Orders that are completed: \n";
+    if(head_ptr == NULL)
+        return;
     for(Node<Order>* cursor = head_ptr; cursor != NULL; cursor = cursor->link())
     {
         if(cursor->data().is_ready() == true)
@@ -227,8 +234,16 @@ void Linked_List::print_list()
     }
 
 }
+/*
+    Author: Jordan Laidig
+    Title: delivery_check
+    Description: Checks to see if an order in the list is delivered and then deletes it from the list.
+    Date: 5/18/18
+*/
 void Linked_List::delivery_check()
 {
+    if(head_ptr == NULL)
+        return;
     Node<Order>* cursor = head_ptr;
     if(cursor->data().is_delivered() == true)
         head_remove();
@@ -238,4 +253,16 @@ void Linked_List::delivery_check()
             list_remove(cursor);
         cursor = cursor->link();
     }
+}
+/*
+    Author: Jordan Laidig
+    Title: create_order
+    Description: Uses the order classes take order function in order to add an order to the list.
+    Date: 5/18/18
+*/
+void Linked_List::create_order()
+{
+    Order *temp = new Order;
+    temp->take_order();
+    list_insert(tail_ptr, *temp);
 }
