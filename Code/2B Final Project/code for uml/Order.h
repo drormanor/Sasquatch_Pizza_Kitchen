@@ -4,8 +4,6 @@
 #include <time.h>
 #include <string>
 #include <unordered_map>
-#include <stdio.h>
-#include <iomanip>
 
 using namespace std;
 class Order
@@ -136,14 +134,14 @@ public:
 
   bool is_ready();
   // Summary: this function will check if an order is ready.
-  // Preconditions: object has been created and pizza list is not empty
+  // Preconditons: object has been created and pizza list is not empty
   // Postconditions: a bool is returned after comparing the current time
   // to order_time + cook_time
   // ******************************************************************************************
 
   bool is_delivered();
   // Summary: this function will check if an order was delivered.
-  // Preconditions: object has been created and pizza list is not empty
+  // Preconditons: object has been created and pizza list is not empty
   // Postconditions: a bool is returned after comparing the current time
   // to the order_time + cook_time + delivery_time;
   // ******************************************************************************************
@@ -178,12 +176,11 @@ private:
                                            "Anchovies"};
   string customer_name;
   string customer_phone;
-  string line = "\n----------------------------------------------\n";
   Node<Pizza> *head_ptr; // Points to front of list
   size_type pizza_count; // holds the number of Nodes in the list
   time_t order_time; //store the time when the order was placed
 
-  void set_order_time() { order_time = time(nullptr); };
+  void set_order_time() { order_time = time(NULL); };
   // Summary: a timestamp will be created and stored
   // *********************************************************************
 
@@ -198,7 +195,6 @@ private:
   // Summary: a list of the available toppings will print to the screen
   // Postconditions: the list will print with the index and the topping name
   // *********************************************************************
-
 };
 
 void list_copy(const Order &source_list, Order &destination_list);
@@ -213,13 +209,3 @@ void is_phone_number(string& pnum);
 string format_phone(string ph_num);
 //  summary: will print the phone number it this format (xxx)xxx-xxxx
 // *********************************************************************
-
-void validate_pizza_size(char &size);
-  // Summary: will validate that the size is either 's', 'm' or 'l'
-  // ********************************************************************
-void print_order_header();
-    // Summary: will print the header for the order details
-    // ********************************************************************
-
-
-

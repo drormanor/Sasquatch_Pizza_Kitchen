@@ -1,6 +1,6 @@
 #include "Order.h"
 #include <iomanip>
-#include<ios>
+
 #include <cassert>
 #include <iostream>
 
@@ -29,7 +29,6 @@ void Order::set_order_time(time_t t)
 {
     order_time = t;
 }
-
 
 string Order::get_phone() const
 {
@@ -111,6 +110,8 @@ void Order::operator=(const Order &source_list)
     set_name(source_list.get_name());
     set_phone(source_list.get_phone());
     set_cookTime(source_list.get_cookTime());
+    cout << "\n new cook time: " << get_cookTime() << endl;
+    cout << "\n old cook time: " << source_list.get_cookTime() << endl;
     this->order_time = source_list.get_order_time();
     this->head_insert(source_list.getHeadPtr()->data());
     Node<Pizza> *dest_cursor = head_ptr;
@@ -137,7 +138,7 @@ void Order::take_order()
     while (tolower(check) != 'n')
     {
 
-        cout << "\n\nAdd a pizza:\n";
+        cout << "Add a pizza:\n";
         add_pizza();
 
         cout << "Would you like to add another pizza? y/n ";
@@ -150,28 +151,16 @@ void Order::take_order()
         }
     }
     set_order_time();
-    cout << line;
     print_order();
-    cout << line;
 }
 
 void Order::print_order()
 {
-    time_t temp_order_time = order_time;
-    tm * st = localtime(&temp_order_time);
-    print_order_header();
-    cout << line;
-    cout << endl;
+
     cout << setw(15) << left << customer_name;
-    cout << setw(15) << left << format_phone(customer_phone) ;
-    cout << setw(15) << left << put_time(st, "%m/%d/%Y %H:%M"); 
-    cout << endl;
-    if (is_ready())
-        cout << "Order will be delivered in " << ((Deliverry_time + cook_time) - (time(NULL) - order_time)) << " sec." << endl;
-    else if (is_delivered())
-        cout << "Order is Delivered!\n";
-    else
-        cout << "Order will be ready in " << (cook_time - (time(NULL) - order_time)) << " sec." << endl;
+    cout << setw(15) << left << format_phone(customer_phone);
+    cout << setw(22) << left << ctime(&order_time);
+    cout << "Order will be ready in " << cook_time - (time(NULL) - order_time) << " min." << endl;
 
     cout << "order detail:" << endl;
 
@@ -209,7 +198,6 @@ void Order::add_pizza()
     int topping;
     cout << "\n\nPlease select the size of pizza (s for small, m for medium, or l for large): ";
     cin >> pizza_size;
-    validate_pizza_size(pizza_size);
     temp->set_pizza_size(tolower(pizza_size));
 
     if (cooking_time[pizza_size] > cook_time)
@@ -316,30 +304,4 @@ string format_phone(string ph_num)
     ph_num = ph_num.insert(8, "-");
 
     return ph_num;
-}
-
-void validate_pizza_size(char &size)
-{
-    bool invalid;
-    do
-    {   invalid = false;
-        size = tolower(size);
-        if (size == 's' || size == 'm' || size == 'l')
-        {
-           invalid = false;
-        } else invalid =true;
-        if (invalid)
-        {
-            cout << size << " is invalid size.\n";
-            cout << "\n\nPlease select the size of pizza again \n(s for small, m for medium, or l for large): ";
-            cin >> size;
-        }
-    }while (invalid);
-}
-
-void print_order_header()
-{
-    cout << setw(15) << left << "Customer Name";
-    cout << setw(15) << left << "Phone Number";
-    cout << setw(22) << left << "Order Time";
 }

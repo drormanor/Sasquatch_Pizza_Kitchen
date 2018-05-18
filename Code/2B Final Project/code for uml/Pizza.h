@@ -19,7 +19,7 @@ public:
   // Preconditions: a Pizza object was instantiated
   // *********************************************************************
   
-  void set_toppings(string toppings[]);
+  void Pizza::set_toppings(string toppings[]);
     // Summary: will copy the argument into the the object array
     // Preconditions: a Pizza object was instantiated
     // ********************************************************************

@@ -1,8 +1,7 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 #include "Order.h"
-#include <iostream>
-#include <iomanip>
+
 class Linked_List
 {
     public:
@@ -36,16 +35,13 @@ class Linked_List
         void clear_list();
         void operator=(const Linked_List& list1);
         void delivery_check();
-        void create_order();
+
         void print_list();
     private:
         Node<Order>* head_ptr;
         Node<Order>* tail_ptr;
         size_type node_count;
-        string line = "\n----------------------------------------------\n";
-
 };
 void list_copy(const Linked_List& source_list, Linked_List& destination_list);
-
 
 #endif // LINKED_LIST_H
