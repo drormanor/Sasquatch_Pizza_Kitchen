@@ -194,8 +194,8 @@ void Order::add_pizza()
 {
     Pizza *temp = new Pizza;
     char pizza_size;
-    size_type topping;
-    cout << "Please select the size of pizza (s for small, m for medium, or l for large): ";
+    int topping;
+    cout << "\n\nPlease select the size of pizza (s for small, m for medium, or l for large): ";
     cin >> pizza_size;
     temp->set_pizza_size(tolower(pizza_size));
 
@@ -205,26 +205,40 @@ void Order::add_pizza()
     }
 
     size_type i = 0;
+
+    cout << "\n\nPlease choose up to 5 toppings (cheese and sauce are included)\n";
+
     while (i < Max_toppings)
     {
-        cout << "Please choose up to 5 toppings (cheese and sauce are included)\n";
-        cout << "If you are done or do not want extra toppings choose 0\n\n";
+        
+        cout << "\nIf you are done or do not want extra toppings choose 0\n";
+        cout << "\nTo remove the last topping enter -1\n\n";
+
         print_topping_list();
 
-        cout << "Enter the toping code (enter 0 to exit): ";
+        cout << "\nEnter the toping code (enter 0 to exit or -1 to remove last topping): ";
         cin >> topping;
+        cout << "\n\ntopping selection is : " << topping << endl << endl;
+
         if (topping == 0)
         {
             break;
-        }
-        else if (topping > Topping_list_size - 1)
+        } else if (topping == -1 && i > 0)
+        {
+            i--;
+            temp->remove_last_topping();
+        }        else if (topping > Topping_list_size - 1 || topping < -1)
         {
             cout << "\n\nYou have enterd a incorrect code. please try again!!!\n\n";
         }
+        
         else
         {
             if (temp->add_topping(toppings[topping]))
+            {
                 i++;
+                cout << "\n\nYou added: " << toppings[topping] << " to this pizza" << endl;
+            }
             else
             {
                 cout << "you already have 5 toppings\n";

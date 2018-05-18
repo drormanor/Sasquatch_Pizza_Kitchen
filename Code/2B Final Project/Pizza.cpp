@@ -36,6 +36,13 @@ bool Pizza::add_topping(string new_topping)
         return false;
     }
 }
+bool Pizza::remove_last_topping()
+{
+    if(topping_count > 0)
+    {
+        topping_count--;
+    }
+}
 
 void Pizza::set_toppings(string toppings[])
 {

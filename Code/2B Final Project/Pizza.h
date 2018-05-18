@@ -17,6 +17,7 @@ class Pizza
     char get_pizza_size() const;
     string *get_toppings();
     bool add_topping(string new_topping);
+    bool remove_last_topping();
     void print_Pizza();
 
   private:
