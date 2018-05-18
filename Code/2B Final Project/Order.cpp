@@ -160,7 +160,12 @@ void Order::print_order()
     cout << setw(15) << left << customer_name;
     cout << setw(15) << left << format_phone(customer_phone);
     cout << setw(22) << left << ctime(&order_time);
-    cout << "Order will be ready in " << cook_time - (time(NULL) - order_time) << " min." << endl;
+    if(is_ready())
+        cout << "Order will be delivered in " << ((Deliverry_time + cook_time) - (time(NULL) - order_time))<< " sec." << endl;
+    else if (is_delivered())
+        cout << "Order is Delivered!\n";
+    else
+        cout << "Order will be ready in " << (cook_time - (time(NULL) - order_time))<< " sec." << endl;
 
     cout << "order detail:" << endl;
 
