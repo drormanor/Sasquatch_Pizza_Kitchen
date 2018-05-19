@@ -2,36 +2,38 @@
 #include "Linked_List.h"
 //#include "./include/Linked_List.h"
 //#include "Order.h"
-#include<cstdlib>
+#include <cstdlib>
 
 int main()
 {
 
-   Linked_List order_list;
-   Order myOrder;
-   string decision, exit;
-   do
-   {
-       cout << "Would you like to create an order or see the existing orders? (Enter c if you want to make an order or s if you want to see the orders.)";
-       getline(cin, decision);
+    Linked_List order_list;
+    Order myOrder;
+    char decision;
+    cout << "\n\nWelcome to the Sasquatch Pizza Kitchen order manager\n\n";
 
-       if(decision == "c")
-       {
-           order_list.create_order();
-       }
-       else
-       {
-           order_list.delivery_check();
-           order_list.print_list();
-       }
+    do
+    {
+        cout << "\nOption Menu:\n\n";
+        cout << "To create an order enter C\n";
+        cout << "To display exisiting orders enter S\n";
+        cout << "TO exit the order manager enter X\n";
 
-       cout << "Do you want to continue? (Enter either Yes or No)";
-       cin >> exit;
-       cin.ignore();
+        cin >> decision;
+        cin.ignore();
+        decision = tolower(decision);
 
+        if (decision == 'c')
+        {
+            order_list.create_order();
+        }
+        else if (decision == 's')
+        {
+            order_list.delivery_check();
+            order_list.print_list();
+        }
 
-   }while(exit == "yes");
-   return EXIT_SUCCESS; 
-   //return 0;
-
+    } while (decision != 'x');
+    return EXIT_SUCCESS;
+    //return 0;
 }
