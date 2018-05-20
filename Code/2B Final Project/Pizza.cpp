@@ -70,7 +70,7 @@ void Pizza::print_Pizza()
         cout << "Medium";
     else
         cout << "Large";
-    cout << " with ";
+    cout << " pizza with ";
     print_toppings();
     cout << endl;
 }

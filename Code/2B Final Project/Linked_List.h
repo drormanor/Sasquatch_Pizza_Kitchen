@@ -42,7 +42,6 @@ class Linked_List
         Node<Order>* head_ptr;
         Node<Order>* tail_ptr;
         size_type node_count;
-        string line = "\n----------------------------------------------\n";
 
 };
 void list_copy(const Linked_List& source_list, Linked_List& destination_list);

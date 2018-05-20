@@ -12,6 +12,17 @@ int main()
     char decision;
     cout << "\n\nWelcome to the Sasquatch Pizza Kitchen order manager\n\n";
 
+    // myOrder.set_city("Salinas");
+    // myOrder.set_house("233");
+    // myOrder.set_phone("3332223232");
+    // myOrder.set_name("Dror Manor");
+    // myOrder.set_street("Main St.");
+    // myOrder.set_zip("93950");
+    // myOrder.add_pizza(); 
+    // cout << "\n\n";
+    // myOrder.set_order_time();
+    // myOrder.print_order();       
+
     do
     {
         cout << "\nOption Menu:\n\n";
@@ -35,5 +46,4 @@ int main()
 
     } while (decision != 'x');
     return EXIT_SUCCESS;
-    //return 0;
 }

@@ -1,6 +1,6 @@
 #include "Order.h"
 #include <iomanip>
-#include<ios>
+#include <ios>
 #include <cassert>
 #include <iostream>
 
@@ -20,6 +20,24 @@ void Order::set_name(string name)
 {
     customer_name = name;
 }
+
+void Order::set_house(string new_house)
+{
+    house_number = new_house;
+}
+
+void Order::set_street(string new_street)
+{
+    street = new_street;
+}
+void Order::set_city(string new_city)
+{
+    city = new_city;
+}
+void Order::set_zip(string new_zip)
+{
+    zip = new_zip;
+}
 void Order::set_cookTime(time_t ct)
 {
     cook_time = ct;
@@ -30,7 +48,6 @@ void Order::set_order_time(time_t t)
     order_time = t;
 }
 
-
 string Order::get_phone() const
 {
     return customer_phone;
@@ -39,7 +56,22 @@ string Order::get_name() const
 {
     return customer_name;
 }
-
+string Order::get_house() const
+{
+    return house_number;
+}
+string Order::get_street() const
+{
+    return street;
+}
+string Order::get_city() const
+{
+    return city;
+}
+string Order::get_zip() const
+{
+    return zip;
+}
 time_t Order::get_cookTime() const
 {
     return cook_time;
@@ -110,6 +142,10 @@ void Order::operator=(const Order &source_list)
 {
     set_name(source_list.get_name());
     set_phone(source_list.get_phone());
+    set_house(source_list.get_house());
+    set_street(source_list.get_street());
+    set_city(source_list.get_city());
+    set_zip(source_list.get_zip());
     set_cookTime(source_list.get_cookTime());
     this->order_time = source_list.get_order_time();
     this->head_insert(source_list.getHeadPtr()->data());
@@ -123,10 +159,28 @@ void Order::operator=(const Order &source_list)
 }
 void Order::take_order()
 {
-    string name, phone;
+    //getting the custumer name
+    string name, phone, new_house, new_street, new_zip, new_city;
     cout << "Please enter the customer name: ";
     getline(cin, name);
     set_name(name);
+    cout << "Customer address:\n";
+    cout << "Please enter the House Number: ";
+    getline(cin, new_house);
+    set_house(new_house);
+
+    cout << "Please enter the Street name: ";
+    getline(cin, new_street);
+    set_street(new_street);
+
+    cout << "Please enter the city name: ";
+    getline(cin, new_city);
+    set_city(new_city);
+
+    cout << "Please enter the zip code number: ";
+    getline(cin, new_zip);
+    set_zip(new_zip);
+
     cout << "Please enter the customer phone number: ";
     getline(cin, phone);
     is_phone_number(phone);
@@ -150,22 +204,19 @@ void Order::take_order()
         }
     }
     set_order_time();
-    cout << line;
-    print_order();
-    cout << line;
+
 }
 
 void Order::print_order()
 {
     time_t temp_order_time = order_time;
-    tm * st = localtime(&temp_order_time);
-    print_order_header();
-    cout << line;
+    tm *st = localtime(&temp_order_time);
+    cout << setw(15) << left << customer_name << "   ";
+    cout << setw(15) << left << format_phone(customer_phone) << "   ";
+    cout << setw(get_house().length()+1) << left << get_house() << setw(get_street().length()+1) << left  << get_street() << setw(get_city().length()+1) << left << get_city() << setw(get_zip().length()+1) << left << get_zip();
+    cout << setw(15) << left << "\nOrder Time: " << put_time(st, "%m/%d/%Y at %H:%M");
     cout << endl;
-    cout << setw(15) << left << customer_name;
-    cout << setw(15) << left << format_phone(customer_phone) ;
-    cout << setw(15) << left << put_time(st, "%m/%d/%Y %H:%M"); 
-    cout << endl;
+    
     if (is_ready())
         cout << "Order will be delivered in " << ((Deliverry_time + cook_time) - (time(NULL) - order_time)) << " sec." << endl;
     else if (is_delivered())
@@ -182,6 +233,7 @@ void Order::print_order()
         cursor->data().print_Pizza();
         cursor = cursor->link();
     }
+    
 }
 bool Order::is_ready()
 {
@@ -209,6 +261,7 @@ void Order::add_pizza()
     int topping;
     cout << "\n\nPlease select the size of pizza (s for small, m for medium, or l for large): ";
     cin >> pizza_size;
+    cin.ignore();
     validate_pizza_size(pizza_size);
     temp->set_pizza_size(tolower(pizza_size));
 
@@ -231,36 +284,43 @@ void Order::add_pizza()
 
         cout << "\nEnter the toping code (enter 0 to exit or -1 to remove last topping): ";
         cin >> topping;
-        cout << "\n\ntopping selection is : " << topping << endl
-             << endl;
-
-        if (topping == 0)
+        while (!cin.good())
         {
-            break;
+            cin.clear();
+            fflush(stdin);
+            cout << "\nWorng entry!!! (enter 0 to exit or -1 to remove last topping): ";
+            cin >> topping;
         }
-        else if (topping == -1 && i > 0)
-        {
-            i--;
-            temp->remove_last_topping();
-        }
-        else if (topping > Topping_list_size - 1 || topping < -1)
-        {
-            cout << "\n\nYou have entered a incorrect code. please try again!!!\n\n";
-        }
-
-        else
-        {
-            if (temp->add_topping(toppings[topping]))
+            
+            if (topping == 0)
             {
-                i++;
-                cout << "\n\nYou added: " << toppings[topping] << " to this pizza" << endl;
+                break;
             }
+            else if (topping == -1 && i > 0)
+            {
+                i--;
+                temp->remove_last_topping();
+            }
+            else if (topping > Topping_list_size - 1 || topping < -1)
+            {
+                cout << "\n\nYou have entered a incorrect code. please try again!!!\n\n";
+                cin.clear();
+                fflush(stdin);
+            }
+
             else
             {
-                cout << "you already have 5 toppings\n";
-                return;
+                if (temp->add_topping(toppings[topping]))
+                {
+                    i++;
+                    cout << "\n\nYou added: " << toppings[topping] << " to this pizza" << endl;
+                }
+                else
+                {
+                    cout << "you already have 5 toppings\n";
+                    return;
+                }
             }
-        }
     }
     temp->print_Pizza();
     head_insert(*temp);
@@ -322,24 +382,26 @@ void validate_pizza_size(char &size)
 {
     bool invalid;
     do
-    {   invalid = false;
+    {
+        invalid = false;
         size = tolower(size);
         if (size == 's' || size == 'm' || size == 'l')
         {
-           invalid = false;
-        } else invalid =true;
+            invalid = false;
+        }
+        else
+            invalid = true;
         if (invalid)
         {
             cout << size << " is invalid size.\n";
             cout << "\n\nPlease select the size of pizza again \n(s for small, m for medium, or l for large): ";
             cin >> size;
         }
-    }while (invalid);
+    } while (invalid);
 }
 
 void print_order_header()
 {
-    cout << setw(15) << left << "Customer Name";
-    cout << setw(15) << left << "Phone Number";
-    cout << setw(22) << left << "Order Time";
+    cout << setw(15) << left << "Customer Name" << sep << setw(15) << left << "Phone Number" << sep << setw(15) << left << "Address";
+    cout << line;
 }

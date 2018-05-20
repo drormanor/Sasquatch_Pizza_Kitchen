@@ -8,15 +8,18 @@
 #include <iomanip>
 
 using namespace std;
+static const string line = "\n-----------------------------------------------------------------\n";
+static const string sep = " | ";
+
 class Order
 {
 public:
   typedef Node<Pizza>::value_type data_type;
   typedef size_t size_type;
-  static const size_type Deliverry_time = 30;
+  static const size_type Deliverry_time = 120;
   static const size_type Max_toppings = 5;
-  string sep = " | ";
   static const size_type Topping_list_size = 20;
+  
 
   // Constructor
   // ******************************************************************************************
@@ -30,6 +33,22 @@ public:
 
   void set_name(string name);
   // Summary:  setter for the customer name
+  // ******************************************************************************************
+
+  void set_house(string new_house);
+  // Summary:  setter for the customer house number
+  // ******************************************************************************************
+
+  void set_street(string new_street);
+  // Summary:  setter for the customer street
+  // ******************************************************************************************
+
+  void set_city(string new_city);
+  // Summary:  setter for the customer city
+  // ******************************************************************************************
+
+  void set_zip(string new_zip);
+  // Summary:  setter for the customer zip code
   // ******************************************************************************************
 
   void set_cookTime(time_t ct);
@@ -46,6 +65,22 @@ public:
 
   string get_name() const;
   // Summary:  getter for the customer name
+  // ******************************************************************************************
+
+  string get_house() const;
+  // Summary:  getter for the customer house number
+  // ******************************************************************************************
+
+  string get_street() const;
+  // Summary:  getter for the customer street name
+  // ******************************************************************************************
+
+  string get_city() const;
+  // Summary:  getter for the customer city
+  // ******************************************************************************************
+
+  string get_zip() const;
+  // Summary:  getter for the customer zip code
   // ******************************************************************************************
 
   time_t get_cookTime() const;
@@ -152,7 +187,8 @@ public:
   ~Order();
   // Summary: The destructor empties the list.
   // *********************************************************************
-
+ void add_pizza();
+ void set_order_time() { order_time = time(nullptr); };
 private:
   time_t cook_time;
   unordered_map<char, int> cooking_time{{'s', 120}, {'m', 240}, {'l', 360}};
@@ -178,16 +214,19 @@ private:
                                            "Anchovies"};
   string customer_name;
   string customer_phone;
-  string line = "\n----------------------------------------------\n";
+  string house_number;
+  string street;
+  string city;
+  string zip;
   Node<Pizza> *head_ptr; // Points to front of list
   size_type pizza_count; // holds the number of Nodes in the list
   time_t order_time; //store the time when the order was placed
 
-  void set_order_time() { order_time = time(nullptr); };
+  //void set_order_time() { order_time = time(nullptr); };
   // Summary: a timestamp will be created and stored
   // *********************************************************************
 
-  void add_pizza();
+ 
   // Summary: a pizza will be added to the order
   // Preconditions: an Order object instantiated
   // Postconditions: the user will be prompt to enter the size of the pizza

@@ -218,9 +218,9 @@ void Linked_List::operator=(const Linked_List &list1)
 void Linked_List::print_list()
 {
     cout << "The Sasquatch Pizza Kitchen";
-    cout << " \nOrders that are completed: \n\n";
+    cout << " \n\nOrders that are completed: \n\n";
     print_order_header();
-    cout << line;
+    
     if (head_ptr == NULL)
         return;
     for (Node<Order> *cursor = head_ptr; cursor != NULL; cursor = cursor->link())
@@ -231,9 +231,9 @@ void Linked_List::print_list()
                 cout << line;
             }
     }
-    cout << "\nOrders that are in progress: \n\n";
+    cout << "\n\nOrders that are in progress: \n\n";
     print_order_header();
-    cout << line;
+   
     for (Node<Order> *cursor = head_ptr; cursor != NULL; cursor = cursor->link())
     {
         if (cursor->data().is_ready() == false)
@@ -273,6 +273,9 @@ void Linked_List::create_order()
 {
     Order *temp = new Order;
     temp->take_order();
+    cout << endl;
+    print_order_header();
+    temp->print_order();
     list_insert(tail_ptr, *temp);
 }
 
