@@ -159,7 +159,7 @@ void Order::operator=(const Order &source_list)
 }
 void Order::take_order()
 {
-    //getting the custumer name
+    //getting the customer name
     string name, phone, new_house, new_street, new_zip, new_city;
     cout << "Please enter the customer name: ";
     getline(cin, name);
@@ -288,7 +288,7 @@ void Order::add_pizza()
         {
             cin.clear();
             fflush(stdin);
-            cout << "\nWorng entry!!! (enter 0 to exit or -1 to remove last topping): ";
+            cout << "\nWrong entry!!! (enter 0 to exit or -1 to remove last topping): ";
             cin >> topping;
         }
             

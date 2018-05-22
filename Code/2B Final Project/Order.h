@@ -17,7 +17,7 @@ public:
   typedef Node<Pizza>::value_type data_type;
   typedef size_t size_type;
   static const size_type Deliverry_time = 120;
-  static const size_type Max_toppings = 5;
+
   static const size_type Topping_list_size = 20;
   
 
@@ -187,8 +187,8 @@ public:
   ~Order();
   // Summary: The destructor empties the list.
   // *********************************************************************
- void add_pizza();
- void set_order_time() { order_time = time(nullptr); };
+ 
+ 
 private:
   time_t cook_time;
   unordered_map<char, int> cooking_time{{'s', 120}, {'m', 240}, {'l', 360}};
@@ -222,11 +222,11 @@ private:
   size_type pizza_count; // holds the number of Nodes in the list
   time_t order_time; //store the time when the order was placed
 
-  //void set_order_time() { order_time = time(nullptr); };
+  void set_order_time() { order_time = time(nullptr); };
   // Summary: a timestamp will be created and stored
   // *********************************************************************
 
- 
+	void add_pizza();
   // Summary: a pizza will be added to the order
   // Preconditions: an Order object instantiated
   // Postconditions: the user will be prompt to enter the size of the pizza
